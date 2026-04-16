@@ -4,16 +4,16 @@ import type { GetbyIdResponse, PublicationCreateParams } from "./publication.typ
 import { EditResearchResponse } from "../research/research.type";
 
 export const publicationService = {
-	getById(id: number) {
-		return apiClient.get<GetbyIdResponse>(`${NASHR.GETBYID}/${id}`);
-	},
-	delete(id: number) {
-		return apiClient.delete<EditResearchResponse>(`${NASHR.DELETE}/${id}`);
-	},
-	edit(id: number | string, params: PublicationCreateParams) {
-		return apiClient.put(`${NASHR.DELETE}/${id}`, params);
-	},
-	create(params: PublicationCreateParams) {
-		return apiClient.post(NASHR.DELETE, params);
-	},
+    getById(id: number) {
+        return apiClient.get<GetbyIdResponse>(`${NASHR.GETBYID}/${id}`);
+    },
+    delete(id: number) {
+        return apiClient.delete<EditResearchResponse>(`${NASHR.DELETE}/${id}`);
+    },
+    edit(id: number | string, params: PublicationCreateParams) {
+        return apiClient.put(`${NASHR.DELETE}/${id}`, params);
+    },
+    create(params: PublicationCreateParams) {
+        return apiClient.post(NASHR.DELETE, params); 
+    },
 };

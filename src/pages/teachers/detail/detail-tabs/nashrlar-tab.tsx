@@ -56,25 +56,25 @@ const columns: ColumnDef<Nashr>[] = [
 			);
 		},
 	},
-	{
-		accessorKey: "degree",
-		header: "Daraja",
-		cell: ({ row }) => {
-			const level = row.getValue("degree") as Nashr["level"];
-			return (
-				<Badge
-					className={
-						level === "XALQARO"
-							? "bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-50"
-							: "bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-50"
-					}
-					variant="outline"
-				>
-					{level}
-				</Badge>
-			);
-		},
-	},
+  {
+    accessorKey: "level",
+    header: "Daraja",
+    cell: ({ row }) => {
+      const level = row.getValue("level") as Nashr["level"];
+      return (
+        <Badge
+          className={
+            level === "XALQARO"
+              ? "bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-50"
+              : "bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-50"
+          }
+          variant="outline"
+        >
+          {level}
+        </Badge>
+      );
+    },
+  },
 	{
 		accessorKey: "popular",
 		header: "Popularlik",

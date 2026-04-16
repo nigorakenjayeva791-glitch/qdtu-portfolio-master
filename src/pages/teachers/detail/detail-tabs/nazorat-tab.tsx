@@ -36,11 +36,11 @@ const columns: ColumnDef<Publication>[] = [
 		header: "Tavsif",
 		cell: ({ row }) => <TruncatedText text={row.getValue("description")} />,
 	},
-	{
-		accessorKey: "researcherName",
-		header: "Tadqiqotchi",
-		cell: ({ row }) => <span className="text-[13px] text-muted-foreground">{row.getValue("researcher")}</span>,
-	},
+  {
+    accessorKey: "researcherName",
+    header: "Tadqiqotchi",
+    cell: ({ row }) => <span className="text-[13px] text-muted-foreground">{row.getValue("researcherName")}</span>,
+  },
 	{
 		accessorKey: "year",
 		header: "Yil",

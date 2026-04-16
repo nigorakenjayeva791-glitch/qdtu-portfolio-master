@@ -72,23 +72,26 @@ export function NashrModal({ userId }: { userId: number }) {
 		}
 	}, [visible, isEdit, editData, reset]);
 
-	const onSubmit = async (data: any) => {
-		let fileUrl = editData?.fileUrl || "";
-		if (data.pdf) {
-			const uploaded = await fileService.uploadPdf(data.pdf);
-			fileUrl = uploaded.url;
-		}
+const onSubmit = async (data: any) => {
+    const { pdf, ...rest } = data;
+    
+    let fileUrl = editData?.fileUrl || "";
+    
+    if (pdf) {
+      const uploaded = await fileService.uploadPdf(pdf);
+      fileUrl = uploaded.url;
+    }
 
-		const payload = {
-			...data,
-			year: Number(data.year),
-			fileUrl,
-			userId,
-		};
+    const payload = {
+      ...rest, 
+      year: Number(data.year),
+      fileUrl,
+      userId,
+    };
 
-		isEdit ? await editNashr({ id: editData.id, ...payload }) : await createNashr(payload);
-		close();
-	};
+    isEdit ? await editNashr({ id: editData.id, ...payload }) : await createNashr(payload);
+    close();
+  };
 
 	return (
 		<Modal

@@ -68,25 +68,29 @@ export function PublicationModal({ userId }: { userId: number }) {
 		}
 	}, [visible, isEdit, editData, reset]);
 
-	const onSubmit = async (data: any) => {
-		let fileUrl = editData?.fileUrl || "";
-		if (data.pdf) {
-			const uploaded = await fileService.uploadPdf(data.pdf);
-			fileUrl = uploaded.url;
-		}
+const onSubmit = async (data: any) => {
+    
+    const { pdf, ...rest } = data;
+    
+    let fileUrl = editData?.fileUrl || "";
+    
+   
+    if (pdf) {
+      const uploaded = await fileService.uploadPdf(pdf);
+      fileUrl = uploaded.url;
+    }
 
-		const payload = {
-			...data,
-			year: Number(data.year),
-			finished: data.finished === "true",
-			fileUrl,
-			userId,
-		};
+    const payload = {
+      ...rest, 
+      year: Number(data.year),
+      finished: data.finished === "true",
+      fileUrl,
+      userId,
+    };
 
-		isEdit ? await editNazorat({ id: editData.id, ...payload }) : await createNazorat(payload);
-		close();
-	};
-
+    isEdit ? await editNazorat({ id: editData.id, ...payload }) : await createNazorat(payload);
+    close();
+  };
 	return (
 		<Modal
 			open={visible}
