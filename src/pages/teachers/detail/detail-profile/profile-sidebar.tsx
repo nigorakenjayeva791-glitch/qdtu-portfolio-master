@@ -19,11 +19,12 @@ type ProfileSidebarProps = {
 };
 
 export function ProfileSidebar({ profile, imgUrl }: ProfileSidebarProps) {
-	const preview = profile.image
-		? URL.createObjectURL(profile.image)
-		: imgUrl ?? null;
+  const preview = profile?.image
+    ? URL.createObjectURL(profile.image)
+    : imgUrl ?? null;
 
-	const hasIds = profile.orcId || profile.scopusId || profile.scienceId || profile.researcherId;
+  const hasIds = profile?.orcId || profile?.scopusId || profile?.scienceId || profile?.researcherId;
+
 
 	return (
 		<div className="w-full lg:w-72 lg:shrink-0">

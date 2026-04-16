@@ -1,32 +1,43 @@
-import type { ProfileFormData } from "@/pages/teachers/detail/detail-profile/profile-edit";
+import { useParams } from "react-router";
+import { useQuery } from "@tanstack/react-query";
+import { TeacherService } from "@/features/teacher/teacher.service";
+import { useUpdateTeacher } from "@/hooks/teacher/useUpdateTeacher";
+import { useCreateTeacher } from "@/hooks/teacher/useCreateTeacher";
 import { ProfileForm } from "@/pages/teachers/detail/detail-profile/profile-form";
-import { ProfileSidebar } from "@/pages/teachers/detail/detail-profile/profile-sidebar";
-
-const profile: ProfileFormData = {
-	fullName: "Karimov Bobur Aliyevich",
-	email: "bobur.karimov@qdtu.uz",
-	age: "42",
-	phone: "+998900000000",
-	department: "Farmatsiya va kimyo kafedrasi",
-	position: "Dotsent",
-	bio: "Farmatsiya va kimyo sohasida 15 yildan ortiq tajribaga ega mutaxassis.",
-	additionalInfo: "",
-	specialty: "Farmatsiya",
-	orcId: "0000-0002-1234-5678",
-	scopusId: "57210000000",
-	scienceId: "",
-	researcherId: "",
-	image: null,
-	resume: null,
-};
 
 export default function TeacherProfile() {
-	return (
-		<div className="flex flex-col lg:flex-row gap-4 sm:gap-5 items-start">
-			<ProfileSidebar profile={profile} />
-			<div className="w-full lg:flex-1 min-w-0">
-				<ProfileForm defaultValues={profile} />
-			</div>
-		</div>
-	);
+  const { id } = useParams();
+  const isEdit = !!id;
+  const teacherId = Number(id);
+
+  const { data: response, isLoading } = useQuery({
+    queryKey: ["teacher", teacherId],
+    queryFn: () => TeacherService.getById(teacherId),
+    enabled: isEdit,
+  });
+
+  const { mutate: updateTeacher, isPending: isUpdating } = useUpdateTeacher();
+  const { mutate: createTeacher, isPending: isCreating } = useCreateTeacher();
+
+  const handleSave = (formData: any) => {
+    if (isEdit) {
+      updateTeacher({ id: teacherId, ...formData });
+    } else {
+      createTeacher(formData);
+    }
+  };
+
+  if (isEdit && isLoading) return <div>Yuklanmoqda...</div>;
+
+  return (
+    <div className="flex flex-col lg:flex-row gap-4 sm:gap-5 items-start">
+      <div className="w-full lg:flex-1 min-w-0">
+        <ProfileForm
+          defaultValues={isEdit ? response?.data : {}}
+          onSubmit={handleSave}
+          isPending={isUpdating || isCreating}
+        />
+      </div>
+    </div>
+  );
 }

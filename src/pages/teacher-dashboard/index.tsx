@@ -23,20 +23,21 @@ const typeBadge: Record<string, string> = {
 	Konferensiya: "bg-emerald-100 text-emerald-700",
 };
 
-export default function TeacherDashboard() {
-	if (!teacher) {
-		return (
-			<div className="flex flex-col gap-6 w-full">
-				<Card>
-					<CardContent className="flex items-center justify-center py-12 text-muted-foreground text-[14px]">
-						Ma'lumotlar yuklanmoqda...
-					</CardContent>
-				</Card>
-			</div>
-		);
-	}
+// export default function TeacherDashboard() {
+// 	if (!teacher) {
+// 		return (
+// 			<div className="flex flex-col gap-6 w-full">
+// 				<Card>
+// 					<CardContent className="flex items-center justify-center py-12 text-muted-foreground text-[14px]">
+// 						Ma'lumotlar yuklanmoqda...
+// 					</CardContent>
+// 				</Card>
+// 			</div>
+// 		);
+// 	}
 
-	return (
+	export default function TeacherDashboard(){
+	 return (
 		<div className="flex flex-col gap-6 w-full">
 			{/* Profile */}
 			<Card>
@@ -45,29 +46,29 @@ export default function TeacherDashboard() {
 						<Icon icon="mdi:account" size={36} color="#1d4ed8" />
 					</div>
 					<div className="flex flex-col gap-1 flex-1">
-						<h2 className="text-[18px] font-bold leading-tight">{teacher.fullName}</h2>
+						<h2 className="text-[18px] font-bold leading-tight">{teacher?.fullName}</h2>
 						<div className="flex flex-wrap gap-x-4 gap-y-1 text-[13px] text-muted-foreground">
 							<span className="flex items-center gap-1">
 								<Icon icon="lucide:phone" size={13} />
-								{teacher.phone}
+								{teacher?.phone}
 							</span>
 							<span className="flex items-center gap-1">
 								<Icon icon="lucide:briefcase" size={13} />
-								{teacher.position}
+								{teacher?.position}
 							</span>
 							<span className="flex items-center gap-1">
 								<Icon icon="mdi:school-outline" size={13} />
-								{teacher.degree}
+								{teacher?.degree}
 							</span>
 						</div>
 						<div className="flex flex-wrap gap-x-4 gap-y-1 text-[13px] text-muted-foreground mt-0.5">
 							<span className="flex items-center gap-1">
 								<Icon icon="lucide:layers" size={13} />
-								{teacher.department}
+								{teacher?.department}
 							</span>
 							<span className="flex items-center gap-1">
 								<Icon icon="lucide:building-2" size={13} />
-								{teacher.faculty}
+								{teacher?.faculty}
 							</span>
 						</div>
 					</div>
@@ -127,9 +128,9 @@ export default function TeacherDashboard() {
 					<CardContent className="flex flex-col gap-1 px-6 py-5">
 						<span className="text-[13px] text-white/70">Ishlash davri</span>
 						<span className="text-[20px] font-bold text-white">
-							{new Date().getFullYear() - teacher.joinedYear} yil — {teacher.joinedYear} yildan buyon
+							{new Date().getFullYear() - teacher?.joinedYear} yil — {teacher?.joinedYear} yildan buyon
 						</span>
-						<span className="text-[13px] text-white/80">{teacher.department}</span>
+						<span className="text-[13px] text-white/80">{teacher?.department}</span>
 					</CardContent>
 				</Card>
 			</div>
